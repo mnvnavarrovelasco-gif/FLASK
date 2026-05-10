@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}{{ personaje.nombre }} | One Piece Flask{% endblock %}
+
+{% block content %}
+<section class="page-heading detail-main">
+    <span class="eyebrow">Ficha de personaje</span>
+    <h1><span class="titulo">{{ personaje.nombre }}</span></h1>
+    <p>{{ personaje.alias or 'Sin alias conocido' }}</p>
+</section>
+
+<section class="detail-layout">
+    <article class="panel detail-main">
+        <h2><span class="subtitulo">Información general</span></h2>
+        <div class="detail-grid">
+            <div><strong>ID</strong><span>{{ personaje.id }}</span></div>
+            <div><strong>Rol</strong><span>{{ personaje.rol }}</span></div>
+            <div><strong>Tripulación</strong><span>{{ personaje.tripulacion }}</span></div>
+            <div><strong>Rango</strong><span>{{ personaje.rango }}</span></div>
+            <div><strong>Origen</strong><span>{{ personaje.origen }}</span></div>
+            <div><strong>Edad</strong><span>{{ personaje.edad }}</span></div>
+            <div><strong>Altura</strong><span>{{ personaje.altura }}</span></div>
+            <div><strong>Cumpleaños</strong><span>{{ personaje.fecha_cumpleaños }}</span></div>
+            <div><strong>Grupo sanguíneo</strong><span>{{ personaje.grupo_sanguineo }}</span></div>
+            <div><strong>Arco debut</strong><span>{{ personaje.arco_debut }}</span></div>
+            <div><strong>Recompensa</strong><span>{{ personaje.recompensa_formateada }} berries</span></div>
+            <div><strong>Sueño</strong><span>{{ personaje.sueño }}</span></div>
+        </div>
+    </article>
+
+    <article class="panel detail-side">
+        <h2><span class="subtitulo">Poderes y combate</span></h2>
+        <p><strong>Fruta del diablo:</strong> {{ personaje.nombre_fruta }}</p>
+        <p><strong>Tipo:</strong> {{ personaje.tipo_fruta }}</p>
+
+        {% if personaje.fruta_del_diablo and personaje.fruta_del_diablo.habilidad %}
+        <p><strong>Habilidad:</strong> {{ personaje.fruta_del_diablo.habilidad }}</p>
+        {% endif %}
+
+        {% if personaje.haki %}
+        <p><strong>Haki:</strong> {{ personaje.haki | join(', ') }}</p>
+        {% else %}
+        <p><strong>Haki:</strong> No registrado</p>
+        {% endif %}
+    </article>
+</section>
+
+<section class="panel extra-info">
+    <h2><span class="subtitulo">Datos adicionales</span></h2>
+    <div class="detail-columns">
+        {% if personaje.estilo_espada %}<p><strong>Estilo de espada:</strong> {{ personaje.estilo_espada }}</p>{% endif %}
+        {% if personaje.estilo_combate %}<p><strong>Estilo de combate:</strong> {{ personaje.estilo_combate }}</p>{% endif %}
+        {% if personaje.armas %}<p><strong>Armas:</strong> {{ personaje.armas | join(', ') }}</p>{% endif %}
+        {% if personaje.espadas %}<p><strong>Espadas:</strong> {{ personaje.espadas | join(', ') }}</p>{% endif %}
+        {% if personaje.habilidades_especiales %}<p><strong>Habilidades especiales:</strong> {{ personaje.habilidades_especiales | join(', ') }}</p>{% endif %}
+        {% if personaje.formas %}<p><strong>Formas:</strong> {{ personaje.formas | join(', ') }}</p>{% endif %}
+        {% if personaje.afiliaciones_pasadas %}<p><strong>Afiliaciones pasadas:</strong> {{ personaje.afiliaciones_pasadas | join(', ') }}</p>{% endif %}
+        {% if personaje.nombre_real %}<p><strong>Nombre real:</strong> {{ personaje.nombre_real }}</p>{% endif %}
+        {% if personaje.maestra %}<p><strong>Maestra/o:</strong> {{ personaje.maestra }}</p>{% endif %}
+        {% if personaje.maestro %}<p><strong>Maestro:</strong> {{ personaje.maestro }}</p>{% endif %}
+        {% if personaje.rival %}<p><strong>Rival:</strong> {{ personaje.rival }}</p>{% endif %}
+
+        {% if personaje.familia %}
+        <div>
+            <strong>Familia:</strong>
+            <ul>
+                {% for clave, valor in personaje.familia.items() %}
+                <li>{{ clave|replace('_', ' ')|capitalize }}: {{ valor if valor is string else valor | join(', ') }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <a class="btn-solid inline-btn" href="/personajes">Volver al listado</a>
+</section>
+{% endblock %}

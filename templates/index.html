@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block title %}Inicio | One Piece Flask{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-text">
+        <span class="eyebrow">La Gran Era Pirata</span>
+        <h1><span class="titulo">Explora el universo de One Piece</span></h1>
+        <p>Pincha en la imagen para entrar al buscador.</p>
+
+        <a class="btn-primary" href='/personajes'>
+            <img
+                src="../static/img/inicio.webp"
+                alt="Ir al listado de personajes de One Piece"
+                class="hero-image-link">
+            <span>Entrar al catálogo de personajes</span>
+        </a>
+    </div>
+
+    <div class="panel lore-panel">
+        <h2><span class="subtitulo">Datos del universo</span></h2>
+        <ul>
+            <li><strong>Anime:</strong> {{ universo.anime }}</li>
+            <li><strong>Autor:</strong> {{ universo.autor }}</li>
+            <li><strong>Total de personajes:</strong> {{ universo.total_personajes }}</li>
+            <li><strong>Primera publicación del manga:</strong> 19 de julio de 1997</li>
+            <li><strong>Estreno del anime:</strong> 20 de octubre de 1999</li>
+            <li><strong>Estudio de animación: </strong>Toei Animation</li>
+            <li><strong>Género:</strong> shonen, acción, aventura, fantasía, comedia y ciencia ficción</li>
+            <li><strong>Protagonista:</strong> Monkey D. Luffy</li>
+            <li><strong>Episodios del anime:</strong> más de 1.100</li>
+            <li><strong>Películas:</strong> 14</li>
+            <li><strong>OVAs:</strong>3</li>
+            <li><strong>Volúmenes del manga:</strong>114</li>
+            <li><strong>Arcos principales:</strong>36</li>
+            <li><strong>Tripulación principal:</strong>Mugiwaras</li>
+        </ul>
+    </div>
+</section>
+
+<section class="grid-section">
+    <article class="panel">
+        <h2><span class="subtitulo">Historia principal</span></h2>
+        <p>La Historia comienza con Luffy, un chico de 17 años que se monta en un barco con el sueño de
+                            encontrar una
+                            tripulación y ser el Rey de los piratas.
+                            Durante el primer arco del anime, nos presentan a los "fundadores" de la tripulación. Luffy
+                            se va
+                            encontrando con ellos y uniendolos a su tripulación según avanza la historia.
+                            El primero en aparecer fué Roronoa Zoro, preso en un cuartel de los Marines, quién tras ser
+                            salvado por
+                            Luffy le jura lealtad. Luego aparece Nami, quién tras un altercado en su isla natal, acaba
+                            uniéndose
+                            también.
+                            Juntos los tres, conocieron a Ussop y tras pelear a su lado Luffy le ofreció unirse. Y por
+                            último apareció
+                            Sanji, el cocinero del Baratie quién tras luchar junto a la banda, se une. Además no podemos
+                            olvidar
+                            mencionar al Going Merry, el barco de los Mugiwara el cúal forma un personaje fundamental en
+                            la historia.</p>
+                            <p>Durante este arco, la tripulación, no solo recluta nakamas, si no que se preparan cada isla
+                            para cruzar la
+                            Red Line y así entrar al Grand Line, el mar donde Gol.D Roger dejó escondido el One Piece.
+                            Gold D. Roger, fué el Rey de los Piratas.</p>
+    </article>
+
+    <article class="panel">
+        <h2><span class="subtitulo">Grandes poderes</span></h2>
+        <p>Las Frutas del Diablo (Akuma no Mi) son frutas místicas en el universo de One Piece que otorgan a quien las 
+            consume poderes sobrehumanos únicos, como transformar el cuerpo en goma, controlar elementos o transformarse en animales.</p>  
+        <p>Sin embargo, el costo de adquirir estas habilidades es una debilidad fatal al agua marina: los usuarios pierden 
+            la capacidad de nadar y se debilitan completamente al entrar en contacto con el océano o la lluvia.
+            Por lo general, cada persona puede consumir solo una fruta del diablo, ya que ingerir una segunda sería mortal, 
+            aunque existen excepciones notables.  Estas frutas se clasifican en tres tipos principales: paramecia, logia y zoan.</p>
+           <p>Se cree que estas frutas se originan a partir de la descomposición de seres vivos (humanos, animales o elementos) y
+             se dice que son encarnaciones del Diablo del Mar.  Cuando un usuario muere, la fruta específica se reencarna en otra 
+             fruta cercana, manteniendo sus propiedades originales para ser consumida nuevamente.</p>
+    </article>
+</section>
+
+<section>
+    <h2 class="section-title"><span class="titulo">Personajes destacados</span></h2>
+    <div class="cards">
+        {% for personaje in destacados %}
+        <article class="character-card">
+            <span class="badge">{{ personaje.rol }}</span>
+            <h3>{{ personaje.nombre }}</h3>
+            <p><strong>Tripulación:</strong> {{ personaje.tripulacion }}</p>
+            <p><strong>Recompensa:</strong> {{ personaje.recompensa_formateada }} berries</p>
+            <a class="link-detail" href="{{ url_for('detalle_personaje', item_id=personaje.id) }}">Ver ficha</a>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

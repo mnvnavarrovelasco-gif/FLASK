@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block title %}Personajes | One Piece Flask{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <h1><span class="titulo titulo2">Buscador de personajes</span></h1>
+</section>
+
+<section class="panel form-panel">
+    <form action="/personajes" method="get" class="search-form">
+        <div class="form-group">
+            <label for="nombre">Buscar por nombre</label>
+            <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                value="{{ nombre }}"
+                placeholder="Ej.: Luffy, Nami, Robin">
+        </div>
+
+        <div class="form-group">
+            <label for="rol">Filtrar por rol</label>
+            <select id="rol" name="rol">
+                <option value="">Todos los roles</option>
+                {% for opcion in roles %}
+                <option value="{{ opcion }}" {% if rol == opcion %}selected{% endif %}>
+                    {{ opcion }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="orden">Orden</label>
+            <select id="orden" name="orden">
+                <option value="asc" {% if orden == 'asc' %}selected{% endif %}>Orden ascendente</option>
+                <option value="desc" {% if orden == 'desc' %}selected{% endif %}>Orden descendente</option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-solid">Buscar</button>
+            <a class="btn-ghost" href="/personajes">Borrar</a>
+        </div>
+    </form>
+</section>
+
+<section class="panel table-panel">
+    <div class="table-header">
+        <h2>Resultados</h2>
+        <p>{{ personajes|length }} personaje(s) encontrado(s)</p>
+    </div>
+
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Información relevante</th>
+                    <th>Detalle</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for personaje in personajes %}
+                <tr>
+                    <td>
+                        <strong>{{ personaje.nombre }}</strong><br>
+                        <span class="muted">{{ personaje.alias or 'Sin alias' }}</span>
+                    </td>
+                    <td>
+                        Rol: {{ personaje.rol }}<br>
+                        Tripulación: {{ personaje.tripulacion }}<br>
+                        Recompensa: {{ personaje.recompensa_formateada }} berries
+                    </td>
+                    <td>
+                        <a class="link-detail" href="/personaje/item_id=personaje.id">Ver detalle</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3">No hay personajes que coincidan con la búsqueda.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
