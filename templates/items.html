@@ -73,7 +73,7 @@
                         Recompensa: {{ personaje.recompensa_formateada }} berries
                     </td>
                     <td>
-                        <a class="link-detail" href="/personaje/item_id=personaje.id">Ver detalle</a>
+                        <a class="link-detail" href="{{ url_for('detalle_personaje', item_id=personaje.id) }}">Ver detalle</a>
                     </td>
                 </tr>
                 {% else %}
